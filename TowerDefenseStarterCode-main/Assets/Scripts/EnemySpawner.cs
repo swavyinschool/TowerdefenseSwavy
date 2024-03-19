@@ -20,9 +20,30 @@ public class EnemySpawner : MonoBehaviour
             Destroy(gameObject);
     }
 
-   
+    public void SpawnWave(GameManager.WaveInfo wave)
+    {
+        // Stop any existing coroutine before starting a new one
+        if (spawnCoroutine != null)
+            StopCoroutine(spawnCoroutine);
 
-   
+        // Start the coroutine for spawning enemies
+        spawnCoroutine = StartCoroutine(SpawnEnemies(wave));
+    }
+
+    private IEnumerator SpawnEnemies(GameManager.WaveInfo wave)
+    {
+        for (int i = 0; i < wave.enemyCount; i++)
+        {
+            // Spawn enemies of level 0 (or desired level) in the first wave
+            int enemyType = 0; // Only spawn enemies of level 0 in the first wave
+
+            // Randomly choose between Path1 and Path2
+            Path path = Random.Range(0, 2) == 0 ? Path.Path1 : Path.Path2;
+
+            SpawnEnemy(enemyType, path);
+            yield return new WaitForSeconds(1f); // Wait 1 second before spawning the next enemy
+        }
+    }
 
     private void SpawnEnemy(int type, Path path)
     {
