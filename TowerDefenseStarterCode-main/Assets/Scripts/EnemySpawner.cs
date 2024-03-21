@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> Path1;
     public List<GameObject> Path2;
-    public List<GameObject> Enemies;
+    public List<GameObject> enemies; // Changed "Enemies" to "enemies" to follow naming conventions
 
     private Coroutine spawnCoroutine; // Store reference to the coroutine
 
@@ -20,46 +19,24 @@ public class EnemySpawner : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SpawnWave(GameManager.WaveInfo wave)
-    {
-        // Stop any existing coroutine before starting a new one
-        if (spawnCoroutine != null)
-            StopCoroutine(spawnCoroutine);
-
-        // Start the coroutine for spawning enemies
-        spawnCoroutine = StartCoroutine(SpawnEnemies(wave));
-    }
-
-    private IEnumerator SpawnEnemies(GameManager.WaveInfo wave)
-    {
-        for (int i = 0; i < wave.enemyCount; i++)
-        {
-            // Spawn enemies of level 0 (or desired level) in the first wave
-            int enemyType = 0; // Only spawn enemies of level 0 in the first wave
-
-            // Randomly choose between Path1 and Path2
-            Path path = Random.Range(0, 2) == 0 ? Path.Path1 : Path.Path2;
-
-            SpawnEnemy(enemyType, path);
-            yield return new WaitForSeconds(1f); // Wait 1 second before spawning the next enemy
-        }
-    }
-
     private void SpawnEnemy(int type, Path path)
     {
-        List<GameObject> selectedPath = path == Path.Path1 ? Path1 : Path2;
-        if (selectedPath.Count > 0)
-        {
-            var spawnPosition = selectedPath[0].transform.position;
-            var newEnemy = Instantiate(Enemies[type], spawnPosition, Quaternion.identity);
-            var script = newEnemy.GetComponent<enemy>();
-            script.path = path;
-            script.target = selectedPath[1];
-        }
-        else
-        {
-            Debug.LogWarning("No path available for enemy spawn!");
-        }
+        var newEnemy = Instantiate(enemies[type], Path1[0].transform.position, Path1[0].transform.rotation);
+        var script = newEnemy.GetComponent<enemy>(); // Changed "GetComponentInParent" to "GetComponent"
+
+        // Set path and target for the enemy
+        script.path = path;
+        script.target = RequestTarget(path, 1); // Start with the second waypoint (index 1)
+    }
+
+    private void SpawnTester()
+    {
+        SpawnEnemy(0, Path.Path1);
+    }
+
+    private void Start()
+    {
+        InvokeRepeating("SpawnTester", 1f, 1f);
     }
 
     public GameObject RequestTarget(Path path, int index)
@@ -70,12 +47,5 @@ public class EnemySpawner : MonoBehaviour
             return selectedPath[index];
         else
             return null;
-    }
-
-    private void OnDestroy()
-    {
-        // Ensure that the coroutine is stopped when the EnemySpawner is destroyed
-        if (spawnCoroutine != null)
-            StopCoroutine(spawnCoroutine);
     }
 }

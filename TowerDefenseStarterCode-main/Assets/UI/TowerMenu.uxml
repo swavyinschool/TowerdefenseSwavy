@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Button text="Sword Tower " parse-escape-sequences="true" display-tooltip-when-elided="true" name="sword" style="left: 620px; top: 370px; width: 141px; height: 47px; background-color: rgb(23, 213, 0);" />
+    <ui:Button text="Archer Tower" parse-escape-sequences="true" display-tooltip-when-elided="true" name="archer" style="height: 49px; width: 119px; left: 486px; top: 318px; background-color: rgb(128, 236, 62);" />
+    <ui:Button text="Wizard Tower" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Wizard" style="left: 354px; top: 260px; height: 50px; width: 110px; background-color: rgb(24, 213, 38);" />
+    <ui:Button text="Delete" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Delete" style="left: 195px; top: 209px; height: 47px; width: 123px; background-color: rgb(11, 255, 26);" />
+    <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Upgrade" style="height: 49px; width: 130px; left: 36px; top: 368px; background-color: rgb(45, 199, 56); position: absolute;" />
+</ui:UXML>

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8060707449464787055}
   - component: {fileID: 9142643618951437747}
-  - component: {fileID: -3531916696583611417}
   - component: {fileID: 5202912160472646695}
+  - component: {fileID: -3531916696583611417}
   m_Layer: 0
   m_Name: UFO(1)
   m_TagString: Enemy
@@ -86,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3531916696583611417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9189679305474800725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdd6b8653e9e42141983b59a61d839c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  health: 10
-  points: 1
 --- !u!70 &5202912160472646695
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,3 +121,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.00657624, y: 0.3068914}
   m_Size: {x: 0.64, y: 0.8}
   m_Direction: 0
+--- !u!114 &-3531916696583611417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9189679305474800725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd6b8653e9e42141983b59a61d839c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  health: 10
+  points: 1

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy : MonoBehaviour
@@ -10,24 +8,6 @@ public class enemy : MonoBehaviour
     public Path path { get; set; }
     public GameObject target { get; set; }
     private int pathIndex = 1;
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-
-        if (health <= 0)
-        {
-            // Voer hier eventuele acties uit bij vernietiging van de vijand
-            Destroy(gameObject);
-        }
-    }
-  
-
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
