@@ -1,45 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum SiteLevel
-{
-    Onbebouwd,
-    Level1,
-    Level2,
-    Level3
-}
 public class ConstructionSite
 {
-    public Vector3Int TilePosition { get; set; }
-    public Vector3 WorldPosition { get; set; }
-    public SiteLevel Level { get; set; }
-    public TowerType TowerType { get; set; }
+    public Vector3Int TilePosition { get; private set; }
+    public Vector3 WorldPosition { get; private set; }
+    public SiteLevel Level { get; private set; }
+    public TowerType TowerType { get; private set; }
     private GameObject tower;
+
     public ConstructionSite(Vector3Int tilePosition, Vector3 worldPosition)
     {
-        // Wijs de tilePosition en worldPosition toe.
-        this.TilePosition = tilePosition;
-        this.WorldPosition = worldPosition;
-
-        // Pas de Y-waarde van worldPosition aan (met 0.5)
-        this.WorldPosition += new Vector3(0, 0.5f, 0);
-
-        // Stel tower gelijk aan null
-        this.tower = null;
+        TilePosition = tilePosition;
+        WorldPosition = worldPosition + new Vector3(0, 0.5f, 0); // Pas de hoogte aan
+        Level = SiteLevel.Onbebouwd;
+        tower = null;
     }
+
     public void SetTower(GameObject newTower, SiteLevel newLevel, TowerType newType)
     {
-        // Controleer eerst of er al een bestaande toren is
+        // Controleer of er al een toren op deze bouwplaats staat
         if (tower != null)
         {
-            // Als er een bestaande toren is, verwijder deze dan eerst
-            GameObject.Destroy(tower);
+            // Vernietig de bestaande toren voordat je een nieuwe bouwt
+            Object.Destroy(tower);
         }
 
-        // Wijs vervolgens de nieuwe toren toe
+        // Wijs de nieuwe toren toe
         tower = newTower;
         Level = newLevel;
         TowerType = newType;
+    }
+
+    public Vector3 GetBuildPosition()
+    {
+        return WorldPosition; // Gebruik de wereldpositie van de bouwplaats
+    }
+
+    // Methode om de toren op te halen
+    public GameObject GetTower()
+    {
+        return tower;
+    }
+
+    // Vermoedelijk heb je een methode nodig om het niveau van de bouwplaats in te stellen
+    public void SetLevel(SiteLevel newLevel)
+    {
+        Level = newLevel;
+    }
+
+    // Vermoedelijk heb je ook een methode nodig om het niveau van de bouwplaats op te halen
+    public SiteLevel GetLevel()
+    {
+        return Level;
     }
 }
