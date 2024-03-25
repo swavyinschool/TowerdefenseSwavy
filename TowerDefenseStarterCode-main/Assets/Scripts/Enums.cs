@@ -1,19 +1,23 @@
+using UnityEngine;
 
-public enum Path
+public class Enums : MonoBehaviour
 {
-    Path1,
-    Path2
-}
-public enum TowerType
-{
-    Archer,
-    Sword,
-    Wizard
-}
-public enum SiteLevel
-{
-    Onbebouwd,
-    Level1,
-    Level2,
-    Level3
+    public enum Path
+    {
+        Path1,
+        Path2
+    }
+    public enum TowerType
+    {
+        Archer,
+        Sword,
+        Wizard
+    }
+    public enum SiteLevel
+    {
+        Onbebouwd,
+        Level1,
+        Level2,
+        Level3
+    }
 }

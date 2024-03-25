@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> Path1;
     public List<GameObject> Path2;
-    public List<GameObject> enemies; // Changed "Enemies" to "enemies" to follow naming conventions
+    public List<GameObject> enemies;
 
-    private Coroutine spawnCoroutine; // Store reference to the coroutine
+    private Coroutine spawnCoroutine;
 
     private void Awake()
     {
@@ -19,24 +20,38 @@ public class EnemySpawner : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void SpawnEnemy(int type, Path path)
+    // Verwijder de SpawnTester-methode en de Start-methode, omdat we deze niet nodig hebben
+
+    public void StartSpawn(int enemyType, Path path) // Hernoem de methode naar StartSpawn
+    {
+        // Begin met het spawnen van vijanden wanneer de "Start Wave" knop wordt ingedrukt
+        spawnCoroutine = StartCoroutine(SpawnEnemies(enemyType, path));
+    }
+
+    public void StopSpawn()
+    {
+        // Stop met het spawnen van vijanden wanneer nodig
+        if (spawnCoroutine != null)
+            StopCoroutine(spawnCoroutine);
+    }
+
+    private IEnumerator SpawnEnemies(int enemyType, Path path)
+    {
+        while (true)
+        {
+            // Blijf vijanden spawnen totdat de loop wordt gestopt
+            SpawnEnemy(enemyType, path);
+            yield return new WaitForSeconds(1f); // Wacht 1 seconde voordat je de volgende vijand spawnt
+        }
+    }
+
+    public void SpawnEnemy(int type, Path path)
     {
         var newEnemy = Instantiate(enemies[type], Path1[0].transform.position, Path1[0].transform.rotation);
-        var script = newEnemy.GetComponent<enemy>(); // Changed "GetComponentInParent" to "GetComponent"
+        var script = newEnemy.GetComponent<enemy>();
 
-        // Set path and target for the enemy
         script.path = path;
-        script.target = RequestTarget(path, 1); // Start with the second waypoint (index 1)
-    }
-
-    private void SpawnTester()
-    {
-        SpawnEnemy(0, Path.Path1);
-    }
-
-    private void Start()
-    {
-        InvokeRepeating("SpawnTester", 1f, 1f);
+        script.target = RequestTarget(path, 1);
     }
 
     public GameObject RequestTarget(Path path, int index)

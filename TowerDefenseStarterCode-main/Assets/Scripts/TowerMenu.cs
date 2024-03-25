@@ -13,7 +13,8 @@ public class TowerMenu : MonoBehaviour
 
     private VisualElement root;
     public static TowerMenu Instance;
-    void Awake()
+
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -23,20 +24,22 @@ public class TowerMenu : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
-    void Start()
+    private void Start()
     {
-        Debug.Log("xxxx");
         root = GetComponent<UIDocument>().rootVisualElement;
 
+        // Assign button references
         archer = root.Q<Button>("archer");
         sword = root.Q<Button>("sword");
         wizard = root.Q<Button>("wizard");
         upgrade = root.Q<Button>("upgrade");
         delete = root.Q<Button>("delete");
 
+        // Attach click event listeners
         if (archer != null)
             archer.clicked += OnArcherButtonClicked;
 
@@ -52,33 +55,32 @@ public class TowerMenu : MonoBehaviour
         if (delete != null)
             delete.clicked += OnDestroyButtonClicked;
 
+        // Hide the menu initially
         root.visible = false;
     }
+
     private void CheckHideMenu(Vector3 clickPosition)
     {
         RaycastHit2D hit = Physics2D.Raycast(clickPosition, Vector2.zero);
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.CompareTag("buildingPlaceGrass"))
         {
-            Debug.Log("Hit object tag: " + hit.collider.tag); // Debug log the tag of the hit object
-            if (hit.collider.CompareTag("buildingPlaceGrass"))
-            {
-                // Toon het menu als er op buildingPlaceGrass is geklikt
-                root.visible = true;
-                return; // Exit the method after showing the menu
-            }
+            // Show the menu if buildingPlaceGrass is clicked
+            root.visible = true;
         }
-
-        // Verberg het menu als er op een andere plaats is geklikt of als er geen object is geraakt
-        root.visible = false;
+        else
+        {
+            // Hide the menu if clicked elsewhere or no object is hit
+            root.visible = false;
+        }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // Bepaal de positie van de muisklik in de wereldruimte
+            // Determine the mouse click position in world space
             Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // Controleer of het menu moet worden verborgen op basis van de klikpositie
+            // Check if the menu should be hidden based on the click position
             CheckHideMenu(clickPosition);
         }
     }
@@ -110,6 +112,7 @@ public class TowerMenu : MonoBehaviour
 
     private void OnDestroy()
     {
+        // Detach click event listeners
         if (archer != null)
             archer.clicked -= OnArcherButtonClicked;
 
@@ -128,42 +131,33 @@ public class TowerMenu : MonoBehaviour
 
     public void SetSite(ConstructionSite site)
     {
-        Debug.Log("fffff");
-
         selectedSite = site;
-        if (selectedSite != null)
-        {
-            EvaluateMenu();
-            root.visible = true; // Show the TowerMenu when a site is selected
-        }
-        else
-        {
-            root.visible = false; // Hide the TowerMenu when no site is selected
-        }
-    }
 
-    public void EvaluateMenu()
-    {
-        Debug.Log("GGDG");
-        // Return if selectedSite equals null
         if (selectedSite == null)
         {
+            // Hide the menu if no site is selected
             root.visible = false;
             return;
         }
 
+        // Show the menu and evaluate button states
+        root.visible = true;
+        EvaluateMenu();
+    }
 
-        // Use the SetEnabled() function on every button
-        archer.SetEnabled(true);
-        sword.SetEnabled(true);
-        wizard.SetEnabled(true);
-        upgrade.SetEnabled(true);
-        delete.SetEnabled(true);
+    public void EvaluateMenu()
+    {
+        if (selectedSite == null)
+            return;
 
-        // If the site level for the selectedSite is zero, only the archerButton, wizardButton, and swordButton should be enabled.
-        // If the site level is 1 or 2, only the update and destroyButton should work.
-        // If the siteLevel is 3, only the destroyButton is enabled.
+        // Disable all buttons by default
+        archer.SetEnabled(false);
+        sword.SetEnabled(false);
+        wizard.SetEnabled(false);
+        upgrade.SetEnabled(false);
+        delete.SetEnabled(false);
 
+        // Use a switch statement based on the site level to enable specific buttons
         switch (selectedSite.Level)
         {
             case SiteLevel.Onbebouwd:
@@ -176,14 +170,10 @@ public class TowerMenu : MonoBehaviour
                 wizard.SetEnabled(true);
                 break;
             case SiteLevel.Level3:
-                archer.SetEnabled(true);
-                sword.SetEnabled(true);
-                wizard.SetEnabled(true);
-                upgrade.SetEnabled(false);
+                delete.SetEnabled(true);
                 break;
             default:
                 break;
         }
     }
-
 }
