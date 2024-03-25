@@ -1,7 +1,4 @@
-using UnityEngine;
 
-public class Enums : MonoBehaviour
-{
     public enum Path
     {
         Path1,
@@ -20,4 +17,3 @@ public class Enums : MonoBehaviour
         Level2,
         Level3
     }
-}
