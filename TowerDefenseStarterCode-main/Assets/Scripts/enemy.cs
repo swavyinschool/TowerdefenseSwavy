@@ -5,7 +5,7 @@ public class enemy : MonoBehaviour
     public float speed = 1f;
     public float health = 10f; // Gezondheid van de vijand
     public int points = 1;
-    public Path path { get; set; }
+    public Enums.Path path { get; set; }
     public GameObject target { get; set; }
     private int pathIndex = 1;
 

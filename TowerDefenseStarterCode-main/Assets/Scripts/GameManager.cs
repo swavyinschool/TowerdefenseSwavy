@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         selectedSite = site;
     }
 
-    public void Build(TowerType type, SiteLevel level)
+    public void Build(Enums.TowerType type, Enums.SiteLevel level)
     {
         // Je kunt niet bouwen als er geen site is geselecteerd
         if (selectedSite == null)
@@ -67,13 +67,13 @@ public class GameManager : MonoBehaviour
         List<GameObject> towerList = null;
         switch (type)
         {
-            case TowerType.Archer:
+            case Enums.TowerType.Archer:
                 towerList = Archers;
                 break;
-            case TowerType.Sword:
+            case Enums.TowerType.Sword:
                 towerList = Swords;
                 break;
-            case TowerType.Wizard:
+            case Enums.TowerType.Wizard:
                 towerList = Wizards;
                 break;
         }

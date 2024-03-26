@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
     // Verwijder de SpawnTester-methode en de Start-methode, omdat we deze niet nodig hebben
 
-    public void StartSpawn(int enemyType, Path path) // Hernoem de methode naar StartSpawn
+    public void StartSpawn(int enemyType, Enums.Path path) // Hernoem de methode naar StartSpawn
     {
         // Begin met het spawnen van vijanden wanneer de "Start Wave" knop wordt ingedrukt
         spawnCoroutine = StartCoroutine(SpawnEnemies(enemyType, path));
@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
             StopCoroutine(spawnCoroutine);
     }
 
-    private IEnumerator SpawnEnemies(int enemyType, Path path)
+    private IEnumerator SpawnEnemies(int enemyType, Enums.Path path)
     {
         while (true)
         {
@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(int type, Path path)
+    public void SpawnEnemy(int type, Enums.Path path)
     {
         var newEnemy = Instantiate(enemies[type], Path1[0].transform.position, Path1[0].transform.rotation);
         var script = newEnemy.GetComponent<enemy>();
@@ -54,9 +54,9 @@ public class EnemySpawner : MonoBehaviour
         script.target = RequestTarget(path, 1);
     }
 
-    public GameObject RequestTarget(Path path, int index)
+    public GameObject RequestTarget(Enums.Path path, int index)
     {
-        List<GameObject> selectedPath = path == Path.Path1 ? Path1 : Path2;
+        List<GameObject> selectedPath = path == Enums.Path.Path1 ? Path1 : Path2;
 
         if (index < selectedPath.Count)
             return selectedPath[index];

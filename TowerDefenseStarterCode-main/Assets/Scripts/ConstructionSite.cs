@@ -4,19 +4,20 @@ public class ConstructionSite
 {
     public Vector3Int TilePosition { get; private set; }
     public Vector3 WorldPosition { get; private set; }
-    public SiteLevel Level { get; private set; }
-    public TowerType TowerType { get; private set; }
+    public Enums.SiteLevel Level { get; private set; }
+    public Enums.TowerType TowerType { get; private set; }
     private GameObject tower;
+
 
     public ConstructionSite(Vector3Int tilePosition, Vector3 worldPosition)
     {
         TilePosition = tilePosition;
         WorldPosition = worldPosition + new Vector3(0, 0.5f, 0); // Pas de hoogte aan
-        Level = SiteLevel.Onbebouwd;
+        Level = Enums.SiteLevel.Onbebouwd;
         tower = null;
     }
 
-    public void SetTower(GameObject newTower, SiteLevel newLevel, TowerType newType)
+    public void SetTower(GameObject newTower, Enums.SiteLevel newLevel, Enums.TowerType newType)
     {
         // Controleer of er al een toren op deze bouwplaats staat
         if (tower != null)
@@ -43,13 +44,13 @@ public class ConstructionSite
     }
 
     // Vermoedelijk heb je een methode nodig om het niveau van de bouwplaats in te stellen
-    public void SetLevel(SiteLevel newLevel)
+    public void SetLevel(Enums.SiteLevel newLevel)
     {
         Level = newLevel;
     }
 
     // Vermoedelijk heb je ook een methode nodig om het niveau van de bouwplaats op te halen
-    public SiteLevel GetLevel()
+    public Enums.SiteLevel GetLevel()
     {
         return Level;
     }

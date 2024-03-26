@@ -1,15 +1,14 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TopMenu : MonoBehaviour
 {
-    public Text waveLabel;
-    public Text creditsLabel;
-    public Text healthLabel;
-    public Button startWaveButton;
-
+    private Label waveLabel;
+    private Label creditsLabel;
+    private Label healthLabel;
+    private Button startWaveButton;
+    private VisualElement root;
     private int currentWave = 1;
     private int playerCredits = 100;
     private int gateHealth = 100;
@@ -23,82 +22,36 @@ public class TopMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Koppel de startWaveButton aan de StartWave functie
-        startWaveButton.onClick.AddListener(StartWave);
+        root = GetComponent<UIDocument>().rootVisualElement;
 
-        // Update de labels met de startwaarden
-        UpdateLabels();
-    }
+        // Assign button references
+        waveLabel = root.Q<Label>("Wave :");
+        creditsLabel = root.Q<Label>("Coins :");
+        healthLabel = root.Q<Label>("Health :");
+        startWaveButton = root.Q<Button>("Start Wave :");
 
-    void OnDestroy()
-    {
-        // Verwijder de koppeling van de StartWave functie van de startWaveButton
-        startWaveButton.onClick.RemoveListener(StartWave);
-    }
-
-    void UpdateLabels()
-    {
-        // Pas de tekst van de labels aan met de huidige waarden
-        waveLabel.text = "Wave: " + currentWave;
-        creditsLabel.text = "Credits: " + playerCredits;
-        healthLabel.text = "Gate Health: " + gateHealth;
-    }
-
-    void StartWave()
-    {
-        if (currentWave <= totalWaves) // Controleer of het totale aantal golven is bereikt
+        // Check if startWaveButton is not null
+        if (startWaveButton != null)
         {
-            // Bepaal het aantal vijanden voor deze golf
-            int enemiesThisWave = baseEnemiesPerWave + (currentWave - 1) * enemiesPerWaveIncrease;
-
-            // Bepaal het niveau van de vijand voor deze golf
-            int enemyLevelIndex = (currentWave - 1) % enemyLevels.Count;
-            GameObject enemyLevel = enemyLevels[enemyLevelIndex];
-
-            // Spawn vijanden
-            for (int i = 0; i < enemiesThisWave; i++)
-            {
-                SpawnEnemy(enemyLevel);
-            }
-
-            // Incrementeer de huidige golf
-            currentWave++;
-
-            // Update de UI-labels
-            UpdateLabels();
-        }
-        else
-        {
-            Debug.Log("Alle golven zijn gespawnd.");
+            // Subscribe to the click event of startWaveButton
+            startWaveButton.clicked += OnStartWaveButtonClicked;
         }
     }
 
-    void SpawnEnemy(GameObject enemyLevel)
+    // Method to handle the click event of the startWaveButton
+    void OnStartWaveButtonClicked()
     {
-        // Bepaal het type vijand op basis van het GameObject-niveau
-        int enemyType = DetermineEnemyType(enemyLevel);
-
-        // Bepaal het pad voor de vijand
-        GameObject pathObject = GetRandomPath(); // Veronderstel dat GetRandomPath een pad-object retourneert
-        Path path = pathObject.GetComponent<Path>(); // Veronderstel dat Path een script is dat is gekoppeld aan het pad-object
-
-        // Roep de SpawnEnemy-methode aan van de EnemySpawner om de vijand te spawnen
-        EnemySpawner.Instance.SpawnEnemy(enemyType, path);
+        // Code to execute when the button is clicked
+        Debug.Log("Start Wave button clicked!");
+        // Call your method to spawn enemies
+        SpawnEnemy();
     }
 
-    int DetermineEnemyType(GameObject enemyLevel)
+    // Method to spawn enemies
+    void SpawnEnemy()
     {
-        // Implementeer je eigen logica om het type vijand te bepalen op basis van het niveau van de vijand
-        // Dit kan bijvoorbeeld worden gedaan door te controleren welk GameObject wordt doorgegeven en het bijbehorende type te retourneren
-        // Voor nu retourneren we gewoon een statische waarde
-        return 0; // Stel dat het eerste type vijand wordt geretourneerd
-    }
-
-    GameObject GetRandomPath()
-    {
-        // Implementeer je eigen logica om een willekeurig pad te kiezen
-        // Dit kan bijvoorbeeld worden gedaan door een van de beschikbare paden willekeurig te kiezen
-        // Voor nu retourneren we gewoon een van de standaardpaden
-        return EnemySpawner.Instance.Path1[0]; // Stel dat we het eerste pad kiezen
+        // Code to spawn enemies
+        Debug.Log("Spawning enemies...");
+        // You need to implement this logic according to your game requirements
     }
 }

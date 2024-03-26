@@ -17,7 +17,7 @@ public class Tower : MonoBehaviour
 
     public GameObject bulletPrefab; // The bullet prefab the tower will shoot 
 
-    public TowerType type; // the type of this tower 
+    public Enums.TowerType type; // the type of this tower 
 
 
 

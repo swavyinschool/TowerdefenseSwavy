@@ -68,7 +68,7 @@ public class TileClickDetector : MonoBehaviour
             else
             {
                 SelectedSite = null;
-            }
+            } 
         }
         else
         {

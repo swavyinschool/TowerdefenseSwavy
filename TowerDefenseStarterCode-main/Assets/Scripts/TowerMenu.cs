@@ -87,17 +87,17 @@ public class TowerMenu : MonoBehaviour
 
     private void OnArcherButtonClicked()
     {
-        GameManager.Instance.Build(TowerType.Archer, SiteLevel.Onbebouwd);
+        GameManager.Instance.Build(Enums.TowerType.Archer,   Enums.SiteLevel.Onbebouwd);
     }
 
     private void OnSwordButtonClicked()
     {
-        GameManager.Instance.Build(TowerType.Sword, SiteLevel.Onbebouwd);
+        GameManager.Instance.Build(Enums.TowerType.Sword, Enums.SiteLevel.Onbebouwd);
     }
 
     private void OnWizardButtonClicked()
     {
-        GameManager.Instance.Build(TowerType.Wizard, SiteLevel.Onbebouwd);
+        GameManager.Instance.Build(Enums.TowerType.Wizard, Enums.SiteLevel.Onbebouwd);
     }
 
     private void OnUpdateButtonClicked()
@@ -160,16 +160,16 @@ public class TowerMenu : MonoBehaviour
         // Use a switch statement based on the site level to enable specific buttons
         switch (selectedSite.Level)
         {
-            case SiteLevel.Onbebouwd:
+            case Enums.SiteLevel.Onbebouwd:
                 upgrade.SetEnabled(true);
                 break;
-            case SiteLevel.Level1:
-            case SiteLevel.Level2:
+            case Enums.SiteLevel.Level1:
+            case Enums.SiteLevel.Level2:
                 archer.SetEnabled(true);
                 sword.SetEnabled(true);
                 wizard.SetEnabled(true);
                 break;
-            case SiteLevel.Level3:
+            case Enums.SiteLevel.Level3:
                 delete.SetEnabled(true);
                 break;
             default:
