@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 288988040}
   - component: {fileID: 288988039}
   - component: {fileID: 288988038}
-  - component: {fileID: 288988042}
+  - component: {fileID: 288988037}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -419,6 +419,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &288988037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288988036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2511e2ccfdca045a17b3bde55989bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveLabel: {fileID: 1854778776}
+  creditsLabel: {fileID: 1403435911}
+  healthLabel: {fileID: 236909691}
+  startWaveButton: {fileID: 302375552}
+  enemyLevels:
+  - {fileID: 9189679305474800725, guid: 868e576304429524085cc5f86d47a187, type: 3}
+  - {fileID: 9212818828773976215, guid: f5fa366df25f35b439bede73c853ed45, type: 3}
+  - {fileID: 3699192951600477159, guid: 05779b3ad4f3c84439f9c2536ed19091, type: 3}
+  - {fileID: 5595149379713003703, guid: 58a6f6e6313f19646af74c52a8c64fc2, type: 3}
+  - {fileID: 7017229907117649157, guid: 55b2f96e1bf94554096c144b058736df, type: 3}
+  - {fileID: 91618468749064179, guid: 4468062634f68954b8ab476a86ab2791, type: 3}
+  - {fileID: 8200097501647232564, guid: 6ab08a4610b7f9b449ee014e7213ea1f, type: 3}
 --- !u!114 &288988038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,30 +529,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &288988042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 288988036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca2511e2ccfdca045a17b3bde55989bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveLabel: {fileID: 1854778776}
-  creditsLabel: {fileID: 1403435911}
-  healthLabel: {fileID: 236909691}
-  startWaveButton: {fileID: 302375552}
-  enemyLevels:
-  - {fileID: 9189679305474800725, guid: 868e576304429524085cc5f86d47a187, type: 3}
-  - {fileID: 9212818828773976215, guid: f5fa366df25f35b439bede73c853ed45, type: 3}
-  - {fileID: 3699192951600477159, guid: 05779b3ad4f3c84439f9c2536ed19091, type: 3}
-  - {fileID: 5595149379713003703, guid: 58a6f6e6313f19646af74c52a8c64fc2, type: 3}
-  - {fileID: 7017229907117649157, guid: 55b2f96e1bf94554096c144b058736df, type: 3}
-  - {fileID: 91618468749064179, guid: 4468062634f68954b8ab476a86ab2791, type: 3}
-  - {fileID: 8200097501647232564, guid: 6ab08a4610b7f9b449ee014e7213ea1f, type: 3}
 --- !u!1 &302375551
 GameObject:
   m_ObjectHideFlags: 0
